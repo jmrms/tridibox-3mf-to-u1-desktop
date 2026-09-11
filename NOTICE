@@ -1,0 +1,21 @@
+Tridibox 3MF to U1 Desktop 1.2.1
+
+Copyright (C) 2026 Tridibox.
+
+The 3MF analysis and conversion engine is derived from “3mf-to-u1” by Eric
+Reid, which itself is derived from “bl2u1” by Josuan Benedicto. Those projects
+are licensed under the GNU General Public License version 3.
+
+Original project: https://github.com/ericreid/3mf-to-u1
+Original upstream: https://github.com/josuanbn/bl2u1
+
+The bundled machine, process, and filament data is generated from the official
+Snapmaker Orca profiles:
+
+Source: https://github.com/Snapmaker/OrcaSlicer
+Profile bundle: 02.03.03.03
+Source commit: ded5297bc7349d6a398a06943ee3bc5dfab52ae3
+
+Snapmaker Orca is distributed under the GNU Affero General Public License
+version 3. The combined Tridibox desktop distribution is provided under the
+GNU Affero General Public License version 3. See LICENSE for the complete text.

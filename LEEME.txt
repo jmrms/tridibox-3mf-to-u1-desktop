@@ -1,0 +1,47 @@
+TRIDIBOX 3MF TO U1 DESKTOP 1.2.1
+================================
+
+USO RÁPIDO
+
+1. Guarde el EXE portátil en una carpeta fija y ejecútelo.
+2. Arrastre un archivo .3mf o presione "Seleccionar archivo".
+3. Elija Muy buena calidad 0,16 mm, Estándar 0,20 mm o Rápida 0,28 mm.
+4. Revise colores y materiales asignados a las cuatro ranuras de la U1.
+5. Presione "Convertir y guardar".
+6. Espere a que todas las comprobaciones sean aprobadas.
+7. Presione "Abrir en Snapmaker Orca" y vuelva a laminar antes de imprimir.
+
+No necesita instalar la aplicación ni descomprimir archivos adicionales.
+
+MEJORAS DE ESTA VERSIÓN
+
+- Perfiles oficiales completos para PLA, PETG-HF, ABS y TPU.
+- Tres perfiles completos para boquilla de 0,4 mm: 0,16, 0,20 y 0,28 mm.
+- Muy buena calidad combina las capas de 0,16 mm con velocidades y
+  aceleraciones High Quality para mejorar paredes y superficies visibles.
+- Estándar conserva el ajuste oficial rápido sin superar los límites seguros.
+- Verificación del 3MF, destino U1, materiales, herramientas y geometría.
+- Apertura directa en Snapmaker Orca.
+- Inicio con Windows compatible con el EXE portátil único.
+- Leyenda "Powered for Tridibox" siempre visible.
+
+La primera vez, si Snapmaker Orca no se detecta automáticamente, la aplicación
+pedirá seleccionar su archivo .exe.
+
+CONVERSIÓN AUTOMÁTICA
+
+En Configuración, active la vigilancia y elija la carpeta Descargas. El programa
+debe permanecer ejecutándose. Con la opción de bandeja puede cerrar la ventana
+y mantener la vigilancia activa en segundo plano.
+
+PRIVACIDAD
+
+La aplicación funciona completamente en esta PC. No requiere Internet y no
+sube los modelos a ningún servidor.
+
+IMPORTANTE
+
+- La Snapmaker U1 admite hasta cuatro filamentos físicos.
+- Conserve el EXE en una carpeta fija si activa "Iniciar con Windows".
+- El resultado usa perfiles incluidos de Snapmaker Orca 02.03.03.03.
+- Revise siempre el resultado en Snapmaker Orca antes de imprimir.

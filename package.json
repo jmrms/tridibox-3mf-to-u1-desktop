@@ -1,0 +1,67 @@
+{
+  "name": "tridibox-3mf-to-u1-desktop",
+  "version": "1.2.1",
+  "description": "Conversor local y sin Internet de archivos 3MF para Snapmaker U1",
+  "main": "main.js",
+  "author": "Tridibox",
+  "license": "AGPL-3.0-only",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "vitest run",
+    "profiles:generate": "node scripts/generate-u1-profiles.js",
+    "package:win": "electron-builder --win portable --x64 && node scripts/package-source.js"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "electron": "^44.3.0",
+    "electron-builder": "^26.0.12",
+    "jsdom": "^25.0.0",
+    "jszip": "^3.10.1",
+    "vitest": "^5.0.0"
+  },
+  "build": {
+    "appId": "com.tridibox.3mftou1",
+    "productName": "Tridibox 3MF to U1",
+    "copyright": "Copyright © 2026 Tridibox",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "main-utils.js",
+      "preload.js",
+      "src/**/*",
+      "vendor/**/*",
+      "assets/**/*",
+      "LEEME.txt",
+      "README_ES.md",
+      "LICENSE",
+      "NOTICE",
+      "package.json"
+    ],
+    "electronLanguages": [
+      "en-US",
+      "es",
+      "es-419"
+    ],
+    "win": {
+      "executableName": "Tridibox-3MF-to-U1",
+      "legalTrademarks": "Tridibox",
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "Tridibox-3MF-to-U1-Desktop-${version}-Portable.${ext}"
+    },
+    "portable": {
+      "requestExecutionLevel": "user"
+    }
+  }
+}

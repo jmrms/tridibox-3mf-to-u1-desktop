@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Tridibox 3MF to U1</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">3</div>
+      <div>
+        <h1>3MF <span>to U1</span></h1>
+        <p>Conversor local para Snapmaker U1</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="watch-status" class="status-pill status-off"><span class="status-dot"></span>Vigilancia desactivada</span>
+      <button id="btn-settings" class="icon-button" type="button" aria-label="Configuración" title="Configuración">⚙</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section id="drop-state" class="drop-card">
+      <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Abrir o soltar un archivo 3MF">
+        <div class="drop-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0-12 4.5 4.5M12 3 7.5 7.5M4 14.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4.5"/></svg>
+        </div>
+        <h2>Soltá aquí un archivo <strong>.3mf</strong></h2>
+        <p>Compatible con Bambu Studio, OrcaSlicer, PrusaSlicer, SuperSlicer y 3MF estándar.</p>
+        <button id="btn-open" class="primary-button" type="button">Seleccionar archivo</button>
+        <small>Todo el procesamiento se realiza en esta computadora.</small>
+      </div>
+    </section>
+
+    <section id="loading-state" class="center-card hidden" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <h2 id="loading-title">Analizando archivo…</h2>
+      <p id="loading-detail">Leyendo el modelo y sus filamentos.</p>
+    </section>
+
+    <section id="error-state" class="message-card error-card hidden" aria-live="assertive">
+      <div class="message-icon" aria-hidden="true">!</div>
+      <div>
+        <h2>No se pudo procesar el archivo</h2>
+        <p id="error-message"></p>
+      </div>
+      <button id="btn-error-new" class="secondary-button" type="button">Elegir otro archivo</button>
+    </section>
+
+    <section id="already-state" class="message-card success-card hidden">
+      <div class="message-icon" aria-hidden="true">✓</div>
+      <div class="message-grow">
+        <h2>Este archivo ya está configurado para Snapmaker U1</h2>
+        <p>No necesita una conversión adicional. Podés conservarlo o modificar sus colores y materiales.</p>
+      </div>
+      <div class="message-actions">
+        <button id="btn-adjust" class="primary-button" type="button">Ajustar igualmente</button>
+        <button id="btn-u1-copy" class="secondary-button" type="button">Guardar copia</button>
+        <button id="btn-u1-new" class="ghost-button" type="button">Nuevo archivo</button>
+      </div>
+    </section>
+
+    <section id="converter-state" class="converter-card hidden">
+      <div class="file-header">
+        <div class="file-glyph" aria-hidden="true">3MF</div>
+        <div class="file-copy">
+          <h2 id="file-name">modelo.3mf</h2>
+          <p id="file-path"></p>
+        </div>
+        <div class="file-badges">
+          <span id="format-badge" class="badge">3MF</span>
+          <span id="support-badge" class="badge badge-support hidden">Soportes detectados</span>
+        </div>
+      </div>
+
+      <div id="slot-warning" class="inline-warning hidden" role="alert"></div>
+
+      <div class="section-heading process-heading">
+        <div>
+          <span class="eyebrow">CALIDAD DE IMPRESIÓN</span>
+          <h3>Elegí el perfil para importar</h3>
+        </div>
+        <p>Las tres opciones utilizan la boquilla oficial de 0,4 mm.</p>
+      </div>
+      <div id="process-options" class="process-options"></div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">SALIDA</span>
+          <h3>Ranuras de filamento de la U1</h3>
+        </div>
+        <p>Arrastrá las tarjetas para cambiar el orden.</p>
+      </div>
+      <div id="slots-strip" class="slots-strip"></div>
+
+      <div class="section-divider"></div>
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">ORIGEN</span>
+          <h3>Colores encontrados en el archivo</h3>
+        </div>
+        <p>Elegí a qué ranura se enviará cada color.</p>
+      </div>
+      <div id="input-list" class="input-list"></div>
+
+      <div class="bottom-actions">
+        <button id="btn-convert" class="primary-button large" type="button">Convertir y guardar</button>
+        <button id="btn-original" class="secondary-button" type="button">Guardar copia original</button>
+        <button id="btn-new" class="ghost-button" type="button">Nuevo archivo</button>
+      </div>
+    </section>
+
+    <section id="success-state" class="message-card success-card hidden">
+      <div class="message-icon" aria-hidden="true">✓</div>
+      <div class="message-grow">
+        <h2>Conversión terminada y verificada</h2>
+        <p id="saved-path"></p>
+        <div class="verification-card">
+          <div class="verification-heading">
+            <strong id="verification-summary">Comprobaciones aprobadas</strong>
+            <span id="profile-version"></span>
+          </div>
+          <ul id="verification-list"></ul>
+        </div>
+        <small>Abrí el archivo en Snapmaker Orca, revisá los parámetros y volvé a laminar antes de imprimir.</small>
+        <p id="orca-error" class="orca-error hidden" role="alert"></p>
+      </div>
+      <div class="message-actions">
+        <button id="btn-open-orca" class="primary-button" type="button">Abrir en Snapmaker Orca</button>
+        <button id="btn-show-folder" class="secondary-button" type="button">Mostrar en carpeta</button>
+        <button id="btn-success-new" class="ghost-button" type="button">Convertir otro</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="version-label">Tridibox 3MF to U1</span>
+    <span>•</span>
+    <span>Funciona sin Internet</span>
+    <span>•</span>
+    <span class="powered">Powered for Tridibox</span>
+  </footer>
+
+  <div id="settings-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">APLICACIÓN</span>
+          <h2 id="settings-title">Configuración</h2>
+        </div>
+        <button id="btn-settings-close" class="icon-button" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <div class="setting-block">
+        <label class="toggle-row">
+          <span>
+            <strong>Vigilar una carpeta automáticamente</strong>
+            <small>Cuando aparezca un nuevo .3mf, abre el conversor. El programa debe estar ejecutándose.</small>
+          </span>
+          <input id="setting-watch" type="checkbox">
+          <span class="toggle" aria-hidden="true"></span>
+        </label>
+        <div class="folder-row">
+          <div id="setting-folder" class="folder-path"></div>
+          <button id="btn-folder" class="secondary-button" type="button">Cambiar carpeta</button>
+        </div>
+      </div>
+
+      <div class="setting-block compact-settings">
+        <label class="toggle-row">
+          <span>
+            <strong>Iniciar con Windows</strong>
+            <small>Permite que la vigilancia funcione desde que encendés la PC.</small>
+          </span>
+          <input id="setting-startup" type="checkbox">
+          <span class="toggle" aria-hidden="true"></span>
+        </label>
+        <label class="toggle-row">
+          <span>
+            <strong>Mantener en la bandeja</strong>
+            <small>Al cerrar la ventana, seguirá vigilando en segundo plano.</small>
+          </span>
+          <input id="setting-tray" type="checkbox">
+          <span class="toggle" aria-hidden="true"></span>
+        </label>
+        <label class="toggle-row">
+          <span>
+            <strong>Convertir automáticamente archivos de un color</strong>
+            <small>Solo para archivos detectados en la carpeta vigilada.</small>
+          </span>
+          <input id="setting-auto" type="checkbox">
+          <span class="toggle" aria-hidden="true"></span>
+        </label>
+      </div>
+
+      <div class="setting-block material-row">
+        <label for="setting-material">
+          <strong>Material predeterminado</strong>
+          <small>Se utiliza cuando el archivo no incluye información de filamento.</small>
+        </label>
+        <select id="setting-material">
+          <option value="PLA">PLA</option>
+          <option value="PETG-HF">PETG-HF</option>
+          <option value="ABS">ABS</option>
+          <option value="TPU">TPU</option>
+        </select>
+      </div>
+
+      <div id="settings-error" class="inline-warning hidden"></div>
+      <div class="modal-actions">
+        <button id="btn-settings-cancel" class="ghost-button" type="button">Cancelar</button>
+        <button id="btn-settings-save" class="primary-button" type="button">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../vendor/jszip.min.js"></script>
+  <script src="lib/constants.js"></script>
+  <script src="lib/color-utils.js"></script>
+  <script src="lib/filament-profiles.js"></script>
+  <script src="lib/template-settings.js"></script>
+  <script src="lib/analyzer.js"></script>
+  <script src="lib/converter.js"></script>
+  <script src="lib/verifier.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
