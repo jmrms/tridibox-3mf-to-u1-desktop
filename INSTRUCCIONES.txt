@@ -1,0 +1,13 @@
+PARCHE DEL PUBLICADOR DE GITHUB - TRIDIBOX
+
+1. Cierre la ventana negra anterior.
+2. Copie el archivo Publicar-en-GitHub.cmd incluido en este parche.
+3. Pegelo dentro de la carpeta completa que ya habia descomprimido.
+4. Windows preguntara si desea reemplazar el archivo existente. Elija SI.
+5. Ejecute el nuevo Publicar-en-GitHub.cmd.
+
+IMPORTANTE:
+- Debe pegarlo en la carpeta que contiene la subcarpeta release.
+- No ejecute este archivo directamente desde el ZIP del parche.
+- La autorizacion de GitHub ya quedo guardada y no debe repetirla.
+
